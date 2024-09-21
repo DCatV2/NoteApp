@@ -37,5 +37,10 @@ namespace NoteApp
         {
             return _notes.OrderBy(n => n.Category).ToList();
         }
+        
+        public List<Note> GetNotesByCategory(NoteCategory category)
+        {
+            return _notes.Where(n => n.Category == category).ToList();
+        }
     }
 }

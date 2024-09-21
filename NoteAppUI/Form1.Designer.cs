@@ -33,7 +33,7 @@
             lblNoteTitle = new Label();
             lblNoteCategory = new Label();
             lblNoteDates = new Label();
-            textBox1 = new TextBox();
+            txtNoteText = new TextBox();
             btnAddNote = new Button();
             btnEditNote = new Button();
             btnDeleteNote = new Button();
@@ -66,6 +66,7 @@
             lblNoteTitle.TabIndex = 2;
             lblNoteTitle.Text = "Название";
             lblNoteTitle.TextAlign = ContentAlignment.MiddleCenter;
+            lblNoteTitle.DataContextChanged += lstNotes_SelectedIndexChanged;
             // 
             // lblNoteCategory
             // 
@@ -86,14 +87,14 @@
             lblNoteDates.TabIndex = 4;
             lblNoteDates.Text = "Добавлено/Изменено";
             // 
-            // textBox1
+            // txtNoteText
             // 
-            textBox1.Location = new Point(259, 75);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Текст заметки";
-            textBox1.Size = new Size(516, 363);
-            textBox1.TabIndex = 5;
+            txtNoteText.Location = new Point(259, 75);
+            txtNoteText.Multiline = true;
+            txtNoteText.Name = "txtNoteText";
+            txtNoteText.PlaceholderText = "Текст заметки";
+            txtNoteText.Size = new Size(516, 363);
+            txtNoteText.TabIndex = 5;
             // 
             // btnAddNote
             // 
@@ -103,6 +104,7 @@
             btnAddNote.TabIndex = 6;
             btnAddNote.Text = "Добавить заметку";
             btnAddNote.UseVisualStyleBackColor = true;
+            btnAddNote.Click += btnAddNote_Click;
             // 
             // btnEditNote
             // 
@@ -112,6 +114,7 @@
             btnEditNote.TabIndex = 7;
             btnEditNote.Text = "Редактировать заметку";
             btnEditNote.UseVisualStyleBackColor = true;
+            btnEditNote.Click += btnEditNote_Click;
             // 
             // btnDeleteNote
             // 
@@ -121,6 +124,7 @@
             btnDeleteNote.TabIndex = 8;
             btnDeleteNote.Text = "Удалить заметку";
             btnDeleteNote.UseVisualStyleBackColor = true;
+            btnDeleteNote.Click += btnDeleteNote_Click;
             // 
             // Form1
             // 
@@ -130,7 +134,7 @@
             Controls.Add(btnDeleteNote);
             Controls.Add(btnEditNote);
             Controls.Add(btnAddNote);
-            Controls.Add(textBox1);
+            Controls.Add(txtNoteText);
             Controls.Add(lblNoteDates);
             Controls.Add(lblNoteCategory);
             Controls.Add(lblNoteTitle);
@@ -149,7 +153,7 @@
         private Label lblNoteTitle;
         private Label lblNoteCategory;
         private Label lblNoteDates;
-        private TextBox textBox1;
+        private TextBox txtNoteText;
         private Button btnAddNote;
         private Button btnEditNote;
         private Button btnDeleteNote;
