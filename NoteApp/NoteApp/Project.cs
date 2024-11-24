@@ -13,7 +13,7 @@ namespace NoteApp
     {
         private readonly List<Note> _notes;
 
-        public IEnumerable<Note> Notes => _notes;
+        public List<Note> Notes => _notes;
 
         public Project()
         {

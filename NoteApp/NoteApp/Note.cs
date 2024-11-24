@@ -42,10 +42,11 @@ namespace NoteApp
 
         public DateTime CreationTime => _creationTime;
         public DateTime LastModified => _lastModified;
-
-        public Note()
+        public Note(string title, NoteCategory category, string text)
         {
-            _title = "Без названия";
+            _title = title;
+            Category = category;
+            _text = text;
             _creationTime = DateTime.Now;
             _lastModified = _creationTime;
         }
