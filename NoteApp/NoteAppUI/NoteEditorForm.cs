@@ -5,9 +5,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace NoteAppUI
 {
@@ -42,32 +44,41 @@ namespace NoteAppUI
         }
         private void OkButton_Click(object sender, EventArgs e)
         {
-            //Получаем значения из текстового поля и комбинированного списка
-            string title = TitleTextBox.Text; // TextBox для ввода названия
-            if (string.IsNullOrEmpty(title)) //Проверка на пустое название
-            {
-                title = "Без названия"; //Если пусто - ставим дефолтное название
-            }
-            NoteCategory category = (NoteCategory)CategoryComboBox.SelectedItem; //ComboBox для категории
-            string text = NoteTextBox.Text; //TextBox для текста заметки
+                //Получаем значения из текстового поля и комбинированного списка
+                string title = TitleTextBox.Text; // TextBox для ввода названия
+                if (string.IsNullOrEmpty(title)) //Проверка на пустое название
+                {
+                    title = "Без названия"; //Если пусто - ставим дефолтное название
+                }
 
-            //Если передана существующая заметка, обновляем её
-            if (Note !=null)
-            {
-                Note.Title = title;
-                Note.Category = category;
-                Note.Text = text;
-            }
-            else
-            {
+                //Проверка на длину названия
+                if (title.Length > 50)
+                {
+                    MessageBox.Show("Название заметки не должно быть длиннее 50 символов.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; //Возвращаем управление, не продолжая выполнение метода
+                }
+
+                NoteCategory category = (NoteCategory)CategoryComboBox.SelectedItem; //ComboBox для категории
+                string text = NoteTextBox.Text; //TextBox для текста заметки
+
+                //Если передана существующая заметка, обновляем её
+                if (Note != null)
+                {
+                    Note.Title = title;
+                    Note.Category = category;
+                    Note.Text = text;
+                }
+                else
+                {
                 //Если это новая заметка, создаем её
-                Note newNote = new Note(title, category, text);
-                _project.AddNote(newNote);
-            }
+                    Note newNote = new Note(title, category, text);
+                    _project.AddNote(newNote);
+                }
 
-            //Закрываем форму для редактирования
-            this.Close();
-        }
+                //Если всё прошло успешно, закрываем форму для редактирования 
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
 
         private void CancelButton_Click(Object sender, EventArgs e)
         {
@@ -77,6 +88,16 @@ namespace NoteAppUI
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void NoteEditorForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Debug.WriteLine("Форма пытается закрыться.");
+        }
+
+        private void NoteEditorForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Debug.WriteLine("Форма закрыта.");
         }
     }
 }
